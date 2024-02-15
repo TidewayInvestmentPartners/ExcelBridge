@@ -17,15 +17,19 @@
 
 	<ItemGroup>
 		<PackageReference Include="ClosedXML" Version="0.95.4" />
+		<PackageReference Include="ExcelBridge.Interfaces" Version="1.0.1" />
 	</ItemGroup>
 	
 	<PropertyGroup>
 		<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="\"/>
-		<None Include="../LICENSE.md" Pack="true" PackagePath="\"/>
+		<None Include="../README.md" Pack="true" PackagePath="\" />
+		<None Include="../LICENSE.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
+	<PropertyGroup>
+		<Version>1.0.1</Version>
+	</PropertyGroup>
 
 
 </Project>

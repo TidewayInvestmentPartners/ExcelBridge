@@ -1,4 +1,4 @@
-﻿namespace ExcelInterface.Models;
+﻿namespace ExcelBridge.Models;
 
 public class SpreadSheetMeta
 {

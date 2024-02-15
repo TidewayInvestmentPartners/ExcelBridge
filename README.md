@@ -26,19 +26,19 @@ A code like:
 public class InstrumentPricesWorkbook 
 { 
 
-       [EBO( 
+       [EIMember( 
               SheetName = "Description", 
               Position = "B3" 
               )] 
        public string DocumentType { get; set; } 
 
-       [EBO( 
+       [EIMember( 
               SheetName = "Description", 
               Position = "B4" 
               )] 
        public string Origin { get; set; } 
 
-       [EBO( 
+       [EIMember( 
               SheetName = "Description", 
               Position = "B5", 
               DateTimeFormat = "dd/MM/yyyy" 
@@ -58,19 +58,19 @@ public class InstrumentPricesWorkbook
 public class Instrument 
 { 
 
-       [ECOMember(Header = "ISIN")] 
+       [EIColumn(Header = "ISIN")] 
        public string ISIN{ get; set; } 
 
-       [ECOMember(Header = "Instrument Name")] 
+       [EIColumn(Header = "Instrument Name")] 
        public string Name { get; set; } 
 
-       [ECOMember(Header = "Bid Price")] 
+       [EIColumn(Header = "Bid Price")] 
        public decimal BidPrice { get; set; } 
 
-       [ECOMember(Header = "Ask Price")] 
+       [EIColumn(Header = "Ask Price")] 
        public decimal AskPrice { get; set; } 
 
-       [ECOMember(Header = "Mid Price")] 
+       [EIColumn(Header = "Mid Price")] 
        public decimal MidPrice { get; set; } 
 
 } 

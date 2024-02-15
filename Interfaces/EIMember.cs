@@ -1,7 +1,7 @@
 ﻿namespace ExcelBridge.Interfaces;
 
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
-public class EIRegister : Attribute
+public class EIMember : Attribute
 {
     public int SheetPosition { get; set; }
     public string SheetName { get; set; }

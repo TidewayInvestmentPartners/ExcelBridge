@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace ExcelInterface.Models;
+namespace ExcelBridge.Models;
 
 public class ColumnMeta
 {

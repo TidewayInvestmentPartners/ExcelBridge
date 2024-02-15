@@ -1,6 +1,6 @@
 ﻿namespace ExcelBridge.Interfaces;
 
-public class EIRegisterMember : Attribute
+public class EIColumn : Attribute
 {
     public string Header { get; set; }
     //public bool ColonAtTheEnd { get; set; } = false;

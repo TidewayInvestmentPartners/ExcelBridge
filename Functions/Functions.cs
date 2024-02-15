@@ -1,6 +1,6 @@
 ﻿using ClosedXML.Excel;
-using ExcelInterface.Attributes;
-using ExcelInterface.Models;
+using ExcelBridge.Interfaces;
+using ExcelBridge.Models;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -34,9 +34,9 @@ namespace ExcelBridge
                             EIBase ebo = (attribute as EIBase);
                         }
 
-                        if (attribute.GetType() == typeof(EIRegister))
+                        if (attribute.GetType() == typeof(EIMember))
                         {
-                            EIRegister eco = (attribute as EIRegister);
+                            EIMember eco = (attribute as EIMember);
 
                             var errorlist = new StringBuilder();
                             var infolist = new StringBuilder();
@@ -144,7 +144,7 @@ namespace ExcelBridge
 
 
 
-                    if (attribute.GetType() == typeof(EIRegister))
+                    if (attribute.GetType() == typeof(EIMember))
                     {
                         var targetobject = property.GetValue(ret);
                         if (targetobject == null)
@@ -153,7 +153,7 @@ namespace ExcelBridge
                             targetobject = Activator.CreateInstance(type);
                             property.SetValue(ret, targetobject);
                         }
-                        EIRegister eco = (attribute as EIRegister);
+                        EIMember eco = (attribute as EIMember);
                         IXLWorksheet worksheet = null;
                         if (eco.SheetName != null)
                             worksheet = workbook.Worksheet(eco.SheetName);
@@ -172,7 +172,7 @@ namespace ExcelBridge
                             var subtprops = subtype.GetProperties();
                             foreach (var subproperty in subtprops)
                             {
-                                var ecomemberprop = subproperty.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIRegisterMember)).FirstOrDefault() as EIRegisterMember;
+                                var ecomemberprop = subproperty.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIColumn)).FirstOrDefault() as EIColumn;
                                 if (ecomemberprop != null)
                                 {
                                     //var subobject= subproperty.GetValue()
@@ -242,9 +242,9 @@ namespace ExcelBridge
                 // for every property loop through all attributes
                 foreach (Attribute a in p.GetCustomAttributes(false))
                 {
-                    if (a.GetType() == typeof(EIRegisterMember))
+                    if (a.GetType() == typeof(EIColumn))
                     {
-                        EIRegisterMember sa = (a as EIRegisterMember);
+                        EIColumn sa = (a as EIColumn);
                         c.ColumnName = sa.Header;
                     }
                 }
@@ -455,9 +455,9 @@ namespace ExcelBridge
                 // for every property loop through all attributes
                 foreach (Attribute a in p.GetCustomAttributes(false))
                 {
-                    if (a.GetType() == typeof(EIRegisterMember))
+                    if (a.GetType() == typeof(EIColumn))
                     {
-                        EIRegisterMember sa = (a as EIRegisterMember);
+                        EIColumn sa = (a as EIColumn);
                         c.ColumnName = sa.Header;
                         c.DateTimeFormat = sa.DateTimeFormat;
                         c.MustBePopulated = sa.MustBePopulated;
@@ -628,7 +628,7 @@ namespace ExcelBridge
             }
         }
 
-        public static void ECOWrite<T>(XLWorkbook wb, EIRegister ecoinfo, T Input) where T : new()
+        public static void ECOWrite<T>(XLWorkbook wb, EIMember ecoinfo, T Input) where T : new()
         {
             //var meta = GetSpreadsheetMeta(eclinfo, typeof(T));
             //using (XLWorkbook wb = new XLWorkbook())
@@ -660,7 +660,7 @@ namespace ExcelBridge
                 var row = startcell.Address.RowNumber;
                 foreach (PropertyInfo pi in typeof(T).GetProperties())
                 {
-                    EIRegisterMember sa = (EIRegisterMember)pi.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIRegisterMember)).FirstOrDefault();
+                    EIColumn sa = (EIColumn)pi.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIColumn)).FirstOrDefault();
                     //foreach (Attribute a in p.GetCustomAttributes(false))
                     //{
                     //    if (a.GetType() == typeof(ECOMember))
@@ -775,7 +775,7 @@ namespace ExcelBridge
 
         public static void ConvertCellToObject(IXLCell cell, PropertyInfo pi, object target)
         {
-            var ecomemberprop = pi.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIRegisterMember)).FirstOrDefault() as EIRegisterMember;
+            var ecomemberprop = pi.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIColumn)).FirstOrDefault() as EIColumn;
             var eboprop = pi.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIBase)).FirstOrDefault() as EIBase;
             switch (pi.PropertyType.ToString())
             {
