@@ -7,7 +7,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>ExcelBridge Functions</Title>
 		<AssemblyName>ExcelBridge.Functions</AssemblyName>
-		<PackageReadmeFile>../README.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageOutputPath>../NuGet</PackageOutputPath>
 		<Authors>Tideway Investment Partners</Authors>
 		<Company>Tideway Investment Partners</Company>
@@ -24,6 +24,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="../README.md" Pack="true" PackagePath="\"/>
+		<None Include="../LICENSE.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 

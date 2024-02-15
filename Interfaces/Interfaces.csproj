@@ -8,7 +8,7 @@
 		<Title>ExcelBridge Interfaces</Title>
 		<PackageOutputPath>../NuGet</PackageOutputPath>
 		<AssemblyName>ExcelBridge.Interfaces</AssemblyName>
-		<PackageReadmeFile>../README.md</PackageReadmeFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Authors>Tideway Investment Partners</Authors>
 		<Company>Tideway Investment Partners</Company>
 		<Product>ExcelBridge</Product>
@@ -20,5 +20,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="../README.md" Pack="true" PackagePath="\"/>
+		<None Include="../LICENSE.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 </Project>
