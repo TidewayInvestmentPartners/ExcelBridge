@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>ExcelBridge Functions</Title>
+		<AssemblyName>ExcelBridge.Functions</AssemblyName>
+		<PackageOutputPath>../NuGet</PackageOutputPath>
+		<Authors>Tideway Investment Partners</Authors>
+		<Company>Tideway Investment Partners</Company>
+		<Product>ExcelBridge</Product>
+		<Description>A useful package for reading from and writing to Excel files using POCOs.</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.95.4" />
+	</ItemGroup>
+
+
+</Project>
