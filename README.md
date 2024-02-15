@@ -6,13 +6,15 @@ Let us suppose we have a spreadsheet like:
  
 
 Tab 1: 
-![Javatpoint](img/tab 1.png)  
+
+![Tab 1](https://raw.githubusercontent.com/TidewayInvestmentPartners/ExcelBridge/master/img/tab%201.png)  
 
 
  
 
 Tab 2: 
-![Javatpoint](img/tab 2.png)  
+
+![Tab 2](https://raw.githubusercontent.com/TidewayInvestmentPartners/ExcelBridge/master/img/tab%202.png)  
  
 
  

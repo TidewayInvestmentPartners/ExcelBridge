@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<TargetFramework>net7.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Title>ExcelBridge Interfaces</Title>
-	<PackageOutputPath>../NuGet</PackageOutputPath>
-	<AssemblyName>ExcelBridge.Interfaces</AssemblyName>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<Authors>Tideway Investment Partners</Authors>
-	<Company>Tideway Investment Partners</Company>
-	<Product>ExcelBridge</Product>
-	<Description>A useful package for reading from and writing to Excel files using POCOs.</Description>
-
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>ExcelBridge Interfaces</Title>
+		<PackageOutputPath>../NuGet</PackageOutputPath>
+		<AssemblyName>ExcelBridge.Interfaces</AssemblyName>
+		<PackageReadmeFile>../README.md</PackageReadmeFile>
+		<Authors>Tideway Investment Partners</Authors>
+		<Company>Tideway Investment Partners</Company>
+		<Product>ExcelBridge</Product>
+		<Description>A useful package for reading from and writing to Excel files using POCOs.</Description>
+	</PropertyGroup>
+	
 	<PropertyGroup>
 		<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="README.md" Pack="true" PackagePath="\"/>
+		<None Include="../README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 </Project>

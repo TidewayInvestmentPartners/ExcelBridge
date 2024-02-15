@@ -7,6 +7,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>ExcelBridge Functions</Title>
 		<AssemblyName>ExcelBridge.Functions</AssemblyName>
+		<PackageReadmeFile>../README.md</PackageReadmeFile>
 		<PackageOutputPath>../NuGet</PackageOutputPath>
 		<Authors>Tideway Investment Partners</Authors>
 		<Company>Tideway Investment Partners</Company>
@@ -16,6 +17,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="ClosedXML" Version="0.95.4" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 
