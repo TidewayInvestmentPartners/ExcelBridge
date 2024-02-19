@@ -13,6 +13,8 @@
 		<Company>Tideway Investment Partners</Company>
 		<Product>ExcelBridge</Product>
 		<Description>A useful package for reading from and writing to Excel files using POCOs.</Description>
+		<RepositoryUrl>https://github.com/TidewayInvestmentPartners/ExcelBridge.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -28,7 +30,7 @@
 		<None Include="../LICENSE.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	<PropertyGroup>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 
 
