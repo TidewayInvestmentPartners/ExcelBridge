@@ -305,7 +305,7 @@ namespace ExcelBridge
                 foreach (var col in meta.Columns)
                 {
                     col.ColumnNumber = ++colnum;
-                    ws.Cell(row, col.ColumnNumber).SetValue<string>(col.ColumnName);
+                    ws.Cell(row, col.ColumnNumber).SetValue(col.ColumnName);
                 }
                 row++;
                 foreach (var inputrow in Input)
@@ -323,7 +323,7 @@ namespace ExcelBridge
                                     //if (svalue.Length > 0 && int.TryParse(svalue, out int n))
                                     //    value = $"'{value}";
                                     var sanitizedValue = ReplaceInArray((string)value, new byte[] { 0xef, 0xbf, 0xbd }, 0x27);
-                                    ws.Cell(row, col.ColumnNumber).SetValue<string>(sanitizedValue);
+                                    ws.Cell(row, col.ColumnNumber).SetValue(sanitizedValue);
                                     break;
                                 }
                             case "System.Decimal":
@@ -336,7 +336,7 @@ namespace ExcelBridge
 
                                     }
                                     catch { };
-                                    ws.Cell(row, col.ColumnNumber).SetValue<double>(doublevalue);
+                                    ws.Cell(row, col.ColumnNumber).SetValue(doublevalue);
 
 
                                     break;
@@ -351,7 +351,7 @@ namespace ExcelBridge
 
                                     }
                                     catch { };
-                                    ws.Cell(row, col.ColumnNumber).SetValue<int>(intvalue);
+                                    ws.Cell(row, col.ColumnNumber).SetValue(intvalue);
 
 
                                     break;
@@ -360,7 +360,7 @@ namespace ExcelBridge
                             case "System.Nullable`1[System.DateTime]":
                                 {
                                     if ((DateTime)value != DateTime.MinValue)
-                                        ws.Cell(row, col.ColumnNumber).SetValue<DateTime>((DateTime)value);
+                                        ws.Cell(row, col.ColumnNumber).SetValue((DateTime)value);
                                     //DateTime? value = null;
                                     //try
                                     //{
@@ -673,7 +673,7 @@ namespace ExcelBridge
                         continue;
 
 
-                    ws.Cell(row, headercol).SetValue<string>((string)sa.Header);
+                    ws.Cell(row, headercol).SetValue((string)sa.Header);
                     var value = pi.GetValue(Input);
 
 
@@ -687,7 +687,7 @@ namespace ExcelBridge
 
                                 var sanitizedValue = ReplaceInArray((string)value, new byte[] { 0xef, 0xbf, 0xbd }, 0x27);
 
-                                ws.Cell(row, datacol).SetValue<string>(sanitizedValue);
+                                ws.Cell(row, datacol).SetValue(sanitizedValue);
                                 break;
                             }
                         case "System.Decimal":
@@ -700,7 +700,7 @@ namespace ExcelBridge
 
                                 }
                                 catch { };
-                                ws.Cell(row, datacol).SetValue<double>(doublevalue);
+                                ws.Cell(row, datacol).SetValue(doublevalue);
 
 
                                 break;
@@ -715,7 +715,7 @@ namespace ExcelBridge
 
                                 }
                                 catch { };
-                                ws.Cell(row, datacol).SetValue<int>(intvalue);
+                                ws.Cell(row, datacol).SetValue(intvalue);
 
 
                                 break;
@@ -724,7 +724,7 @@ namespace ExcelBridge
                         case "System.Nullable`1[System.DateTime]":
                             {
                                 if ((DateTime)value != DateTime.MinValue)
-                                    ws.Cell(row, datacol).SetValue<DateTime>((DateTime)value);
+                                    ws.Cell(row, datacol).SetValue((DateTime)value);
                                 //DateTime? value = null;
                                 //try
                                 //{
