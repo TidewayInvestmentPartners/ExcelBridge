@@ -30,7 +30,7 @@
 		<None Include="../LICENSE.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	<PropertyGroup>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 	</PropertyGroup>
 
 

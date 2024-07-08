@@ -122,104 +122,112 @@ namespace ExcelBridge
             T ret = new T();
             Type ttype = typeof(T);
             var tprops = ttype.GetProperties();
-            foreach (var property in tprops)
+            try
             {
 
-                foreach (var attribute in property.GetCustomAttributes(false))
+                foreach (var property in tprops)
                 {
-                    if (attribute.GetType() == typeof(EIBase))
+
+                    foreach (var attribute in property.GetCustomAttributes(false))
                     {
-
-                        EIBase ebo = (attribute as EIBase);
-                        IXLWorksheet worksheet = null;
-                        if (ebo.SheetName != null)
-                            worksheet = workbook.Worksheet(ebo.SheetName);
-                        if (ebo.SheetPosition > 0)
-                            worksheet = workbook.Worksheet(ebo.SheetPosition);
-                        var cell = worksheet.Cell(ebo.Position);
-
-                        ConvertCellToObject(cell, property, ret);
-
-                    }
-
-
-
-                    if (attribute.GetType() == typeof(EIMember))
-                    {
-                        var targetobject = property.GetValue(ret);
-                        if (targetobject == null)
+                        if (attribute.GetType() == typeof(EIBase))
                         {
-                            var type = property.PropertyType;
-                            targetobject = Activator.CreateInstance(type);
-                            property.SetValue(ret, targetobject);
+
+                            EIBase ebo = (attribute as EIBase);
+                            IXLWorksheet worksheet = null;
+                            if (ebo.SheetName != null)
+                                worksheet = workbook.Worksheet(ebo.SheetName);
+                            if (ebo.SheetPosition > 0)
+                                worksheet = workbook.Worksheet(ebo.SheetPosition);
+                            var cell = worksheet.Cell(ebo.Position);
+
+                            ConvertCellToObject(cell, property, ret);
+
                         }
-                        EIMember eco = (attribute as EIMember);
-                        IXLWorksheet worksheet = null;
-                        if (eco.SheetName != null)
-                            worksheet = workbook.Worksheet(eco.SheetName);
-                        if (eco.SheetPosition > 0)
-                            worksheet = workbook.Worksheet(eco.SheetPosition);
-                        var startcell = worksheet.Cell(eco.StartPosition);
-                        var endcell = worksheet.Cell(eco.EndPosition);
-                        for (var row = startcell.Address.RowNumber; row <= endcell.Address.RowNumber; row++)
+
+
+
+                        if (attribute.GetType() == typeof(EIMember))
                         {
-                            //Let's keep it simple for now
-                            var headercol = startcell.Address.ColumnNumber;
-                            var datacol = endcell.Address.ColumnNumber;
-
-
-                            var subtype = property.PropertyType;
-                            var subtprops = subtype.GetProperties();
-                            foreach (var subproperty in subtprops)
+                            var targetobject = property.GetValue(ret);
+                            if (targetobject == null)
                             {
-                                var ecomemberprop = subproperty.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIColumn)).FirstOrDefault() as EIColumn;
-                                if (ecomemberprop != null)
-                                {
-                                    //var subobject= subproperty.GetValue()
-                                    var targetheader = subproperty.Name;
-                                    if (!string.IsNullOrEmpty(ecomemberprop.Header))
-                                        targetheader = ecomemberprop.Header;
-                                    var headercellvalue = worksheet.Cell(row, headercol).GetString();
-                                    var datacell = worksheet.Cell(row, datacol);
-                                    if (headercellvalue.Contains(targetheader)) //Keep it simple here as well, has to change though.
-                                    {
-                                        ConvertCellToObject(datacell, subproperty, targetobject);
-
-
-                                    }
-                                }
-
+                                var type = property.PropertyType;
+                                targetobject = Activator.CreateInstance(type);
+                                property.SetValue(ret, targetobject);
                             }
+                            EIMember eco = (attribute as EIMember);
+                            IXLWorksheet worksheet = null;
+                            if (eco.SheetName != null)
+                                worksheet = workbook.Worksheet(eco.SheetName);
+                            if (eco.SheetPosition > 0)
+                                worksheet = workbook.Worksheet(eco.SheetPosition);
+                            var startcell = worksheet.Cell(eco.StartPosition);
+                            var endcell = worksheet.Cell(eco.EndPosition);
+                            for (var row = startcell.Address.RowNumber; row <= endcell.Address.RowNumber; row++)
+                            {
+                                //Let's keep it simple for now
+                                var headercol = startcell.Address.ColumnNumber;
+                                var datacol = endcell.Address.ColumnNumber;
+
+
+                                var subtype = property.PropertyType;
+                                var subtprops = subtype.GetProperties();
+                                foreach (var subproperty in subtprops)
+                                {
+                                    var ecomemberprop = subproperty.GetCustomAttributes(false).Where(p => p.GetType() == typeof(EIColumn)).FirstOrDefault() as EIColumn;
+                                    if (ecomemberprop != null)
+                                    {
+                                        //var subobject= subproperty.GetValue()
+                                        var targetheader = subproperty.Name;
+                                        if (!string.IsNullOrEmpty(ecomemberprop.Header))
+                                            targetheader = ecomemberprop.Header;
+                                        var headercellvalue = worksheet.Cell(row, headercol).GetString();
+                                        var datacell = worksheet.Cell(row, datacol);
+                                        if (headercellvalue.Contains(targetheader)) //Keep it simple here as well, has to change though.
+                                        {
+                                            ConvertCellToObject(datacell, subproperty, targetobject);
+
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+
                         }
 
 
-                    }
-
-
-                    if (attribute.GetType() == typeof(EIList))
-                    {
-                        var targetobject = property.GetValue(ret);
-                        if (targetobject == null)
+                        if (attribute.GetType() == typeof(EIList))
                         {
-                            var type = property.PropertyType;
-                            targetobject = Activator.CreateInstance(type);
-                            property.SetValue(ret, targetobject);
+                            var targetobject = property.GetValue(ret);
+                            if (targetobject == null)
+                            {
+                                var type = property.PropertyType;
+                                targetobject = Activator.CreateInstance(type);
+                                property.SetValue(ret, targetobject);
+                            }
+                            EIList ecl = (attribute as EIList);
+                            IXLWorksheet worksheet = null;
+                            if (ecl.SheetName != null && workbook.Worksheets.Contains(ecl.SheetName))
+                                worksheet = workbook.Worksheet(ecl.SheetName);
+                            if (ecl.SheetPosition > 0)
+                                worksheet = workbook.Worksheet(ecl.SheetPosition);
+                            if (worksheet == null)
+                                continue;
+                            ReadECL(worksheet, property, targetobject);
+                            //SheetAttribute sa = (a as SheetAttribute);
+                            //SheetName = sa.Name;
+                            //SheetPosition = sa.Position;
+                            //HeaderRow = sa.HeaderRow;
                         }
-                        EIList ecl = (attribute as EIList);
-                        IXLWorksheet worksheet = null;
-                        if (ecl.SheetName != null && workbook.Worksheets.Contains(ecl.SheetName))
-                            worksheet = workbook.Worksheet(ecl.SheetName);
-                        if (ecl.SheetPosition > 0)
-                            worksheet = workbook.Worksheet(ecl.SheetPosition);
-                        if (worksheet == null)
-                            continue;
-                        ReadECL(worksheet, property, targetobject);
-                        //SheetAttribute sa = (a as SheetAttribute);
-                        //SheetName = sa.Name;
-                        //SheetPosition = sa.Position;
-                        //HeaderRow = sa.HeaderRow;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return ret;
@@ -494,6 +502,10 @@ namespace ExcelBridge
 
             for (var row = HeaderRow + 1; row <= lastrow; row++)
             {
+                if (row==48)
+                {
+
+                }
                 bool empty = true;
                 var res = Activator.CreateInstance(itemType);
                 //T res = new T();
@@ -514,7 +526,7 @@ namespace ExcelBridge
                                     if (string.IsNullOrEmpty(cell.FormulaA1))
                                         value = cell.GetString();
                                     else
-                                        value = (string)cell.CachedValue;
+                                        value = (string)cell.CachedValue.GetText();
                                     if (colinfo.MustBePopulated && !string.IsNullOrEmpty(value))
                                         empty = false;
                                     if (colinfo.Trim)
@@ -529,22 +541,24 @@ namespace ExcelBridge
                                 {
 
                                     var value = 0M;
+
                                     try
                                     {
                                         if (string.IsNullOrEmpty(cell.FormulaA1))
                                             value = Convert.ToDecimal(cell.GetDouble());
                                         else
                                         {
-                                            if (cell.CachedValue.GetType() == typeof(string))
+                                            
+                                            if (cell.CachedValue.Type == XLDataType.Text)
                                             {
                                                 double dvalue;
 
-                                                double.TryParse((string)cell.CachedValue, out dvalue);
+                                                double.TryParse((string)cell.CachedValue.GetText(), out dvalue);
                                                 value = Convert.ToDecimal(dvalue);
 
                                             }
                                             else
-                                                value = Convert.ToDecimal(cell.CachedValue);
+                                                value = Convert.ToDecimal(cell.CachedValue.GetNumber());
                                         }
 
 
